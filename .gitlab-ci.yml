@@ -1,4 +1,3 @@
-#Stages in CICD Pipeline
 stages:
   - Test and Lint
   - Build and Push
@@ -12,67 +11,64 @@ Test and Lint:
   stage: Test and Lint
   script:
     - echo "Test and Lint"
-    rules:
-      #Run if merge request is made or commit is made to master/production
-      -if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(master|production)$/ || $CI_COMMIT_BRANCH =~ /^(master|production)$/'
+  rules:
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(master|production)$/ || $CI_COMMIT_BRANCH =~ /^(master|production)$/'
 
 Validate Terraform:
-  stage: "Test and Lint"
+  stage: Test and Lint
   script:
     - echo "Validate Terraform"
-    rules:
-      #Run if merge request is made or commit is made to master/production
-      -if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(master|production)$/ || $CI_COMMIT_BRANCH =~ /^(master|production)$/'
+  rules:
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(master|production)$/ || $CI_COMMIT_BRANCH =~ /^(master|production)$/'
 
 Build and Push:
-  stage: "Build and Push"
+  stage: Build and Push
   script:
-    - echo "Build and Push Docker Image"
-    rules:
-      - if : '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
+    - echo "Build and Push docker image"
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
 
 Staging Plan:
   stage: Staging Plan
   script:
     - echo "Run Terraform Plan for Staging"
   rules:
-    -if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
+    - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
 
 Staging Apply:
   stage: Staging Apply
   script:
     - echo "Run Terraform Apply for Staging"
   rules:
-    -if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
+    - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
 
 Production Plan:
   stage: Production Plan
   script:
     - echo "Run Terraform Plan for Production"
   rules:
-    -if: '$CI_COMMIT_BRANCH == "production"'
+    - if: '$CI_COMMIT_BRANCH == "production"'
 
 Production Apply:
   stage: Production Apply
   script:
     - echo "Run Terraform Apply for Production"
   rules:
-    -if: '$CI_COMMIT_BRANCH == "production"'
+    - if: '$CI_COMMIT_BRANCH == "production"'
+      when: manual
 
 Staging Destroy:
   stage: Destroy
-  script: 
+  script:
     - echo "Run Terraform Destroy for Staging"
-    rules:
-      - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
-        when: manual  
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
+      when: manual
 
 Production Destroy:
   stage: Destroy
-  script: 
+  script:
     - echo "Run Terraform Destroy for Production"
-    rules:
-      - if: '$CI_COMMIT_BRANCH == "production"'
-        when: manual 
-
-
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "production"'
+      when: manual
