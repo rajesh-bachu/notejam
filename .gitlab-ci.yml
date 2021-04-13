@@ -18,7 +18,7 @@ stages:
 
 
 Validate Terraform:
-  stage: Test and Lint
+  stage: Validate Terraform
   script:
     - cd deploy/
     - terraform init -backend=false #backend = false ensures
