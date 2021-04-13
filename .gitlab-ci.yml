@@ -7,7 +7,7 @@ image:
 
 
 stages:
-  - Test and Lint
+  - Validate Terraform
   - Build and Push
   - Staging Plan
   - Staging Apply
@@ -15,16 +15,7 @@ stages:
   - Production Apply
   - Destroy
 
-Test and Lint:
-  image: docker:19.03.5
-  services:
-    - docker:19.03.5-dind
-  stage: Test and Lint
-  script:
-    - apk add --update docker-compose
-    - docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test && flake8"
-  rules:
-    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(master|production)$/ || $CI_COMMIT_BRANCH =~ /^(master|production)$/'
+
 
 Validate Terraform:
   stage: Test and Lint
