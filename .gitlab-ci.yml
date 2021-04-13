@@ -25,6 +25,7 @@ Test and Lint:
     - docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test && flake8"
   rules:
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^(master|production)$/ || $CI_COMMIT_BRANCH =~ /^(master|production)$/'
+
 Validate Terraform:
   stage: Test and Lint
   script:
