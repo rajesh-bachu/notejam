@@ -35,7 +35,7 @@ Build and Push:
   script:
     - apk add python3
     - pip3 install awscli
-    - docker build --compress -t $ECR_REPO:$CI_COMMIT_SHORT_SHA .
+    - docker build --compress -t $ECR_REPO:$CI_COMMIT_SHORT_SHA -f Dockerfile.prd .
     - $(aws ecr get-login --no-include-email --region eu-central-1)
     - docker push $ECR_REPO:$CI_COMMIT_SHORT_SHA
     - docker tag $ECR_REPO:$CI_COMMIT_SHORT_SHA $ECR_REPO:latest
@@ -97,7 +97,7 @@ Staging Destroy:
     - terraform destroy -auto-approve
   rules:
     - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
-      when: manual
+      #when: manual
 
 Production Destroy:
   stage: Destroy
