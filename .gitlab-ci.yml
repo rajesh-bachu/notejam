@@ -97,7 +97,7 @@ Staging Destroy:
     - terraform destroy -auto-approve
   rules:
     - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
-      #when: manual
+      when: manual
 
 Production Destroy:
   stage: Destroy
