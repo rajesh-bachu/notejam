@@ -66,3 +66,40 @@ resource "aws_ecs_task_definition" "api" {
   }
   tags = local.common_tags
 }
+
+resource "aws_security_group" "ecs_service" {
+  description = "Access for ECS service"
+  name        = "${local.prefix}-ecs-service"
+  vpc_id      = "vpc-e84dd882"
+
+
+  egress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["172.31.0.0/16"]
+  }
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = local.common_tags
+
+}
+
+resource "aws_ecs_service" "api" {
+  name            = "${local.prefix}-api"
+  cluster         = aws_ecs_cluster.main.name
+  task_definition = aws_ecs_task_definition.api.family
+  desired_count   = 1
+  launch_type     = "FARGATE"
+
+  network_configuration {
+    subnets = ["subnet-5a5fe116", "subnet-6ab41f16"]
+
+    security_groups  = [aws_security_group.ecs_service.id]
+    assign_public_ip = true
+  }
+}
