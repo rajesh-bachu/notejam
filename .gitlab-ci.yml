@@ -21,7 +21,7 @@ Validate Terraform:
   stage: Validate Terraform
   script:
     - cd deploy/
-    - terraform init -backend=false #backend = false ensures
+    - terraform init
     - terraform validate
     - terraform fmt -check #check ensures code is not updated, and job fails if format fails
   rules:
@@ -94,7 +94,7 @@ Staging Destroy:
     - cd deploy/
     - terraform init
     - terraform workspace select staging
-    - terraform destroy -auto-approve -lock=false
+    - terraform destroy -auto-approve
   rules:
     - if: '$CI_COMMIT_BRANCH =~ /^(master|production)$/'
       when: manual
