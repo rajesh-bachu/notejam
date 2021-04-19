@@ -7,8 +7,12 @@ ALLOWED_HOSTS = []
 PROJECT_DIR = "{}/../".format(os.path.dirname(__file__))
 
 ADMINS = (
-    ('Sergey Komar', 'komarserjio@gmail.com'),
+    # ('Your Name', 'your_email@domain.com'),
+    ('admin', 'rb@rajeshbachu.com'),
 )
+ADMIN_USERNAME = 'admin'
+ADMIN_EMAIL = 'rb@rajeshbachu.com'
+ADMIN_INITIAL_PASSWORD = 'admin'
 
 MANAGERS = ADMINS
 
