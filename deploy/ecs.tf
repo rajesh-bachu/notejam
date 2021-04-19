@@ -127,15 +127,15 @@ resource "aws_security_group" "rds_sg" {
 }
 
 resource "aws_db_instance" "dbinstance" {
-  allocated_storage    = 10
-  engine               = "postgres"
+  allocated_storage = 10
+  engine            = "postgres"
   #engine_version       = "5.7"
-  instance_class       = "db.t2.micro"
-  name                 = "mydb"
-  username             = "foo"
-  password             = "foobarbaz"
+  instance_class = "db.t2.micro"
+  name           = "mydb"
+  username       = "foo"
+  password       = "foobarbaz"
   #parameter_group_name = "default.mysql5.7"
-  skip_final_snapshot  = true
-  vpc_security_group_ids= [aws_security_group.rds_sg.id]
-  identifier = "${local.prefix}-dbinstance"
+  skip_final_snapshot    = true
+  vpc_security_group_ids = [aws_security_group.rds_sg.id]
+  identifier             = "${local.prefix}-dbinstance"
 }
