@@ -12,6 +12,12 @@
                 "awslogs-stream-prefix": "api"
             }
         },
+        "environment":[{
+            "DB_HOST": "notejam-staging-dbinstance.cdj2prkh8lcj.eu-central-1.rds.amazonaws.com",
+            "DB_NAME": "mydb",
+            "DB_PASS": "foobarbaz",
+            "DB_USER": "foo"
+        }],
         "portMappings": [
             {
                 "containerPort": 80,
