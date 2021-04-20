@@ -51,6 +51,7 @@ data "template_file" "api_container_definitions" {
   }
 }
 
+
 resource "aws_ecs_task_definition" "api" {
   family                   = "${local.prefix}-api"
   container_definitions    = data.template_file.api_container_definitions.rendered
@@ -65,6 +66,7 @@ resource "aws_ecs_task_definition" "api" {
     name = "static"
   }
   tags = local.common_tags
+  
 }
 
 resource "aws_security_group" "ecs_service" {
@@ -134,8 +136,10 @@ resource "aws_db_instance" "dbinstance" {
   name           = "mydb"
   username       = "foo"
   password       = "foobarbaz"
+  publicly_accessible = "true"
   #parameter_group_name = "default.mysql5.7"
   skip_final_snapshot    = true
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
   identifier             = "${local.prefix}-dbinstance"
 }
+
