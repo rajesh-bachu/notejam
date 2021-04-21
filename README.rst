@@ -63,9 +63,9 @@ Visit deploy/docker-compose.yml for reference
 
 
 
-------
+---------------
 Pipeline Stages
-------
+---------------
   - Validate Terraform
   - Build and Push
   - Staging Plan
@@ -74,4 +74,7 @@ Pipeline Stages
   - Production Apply
   - Destroy
 
-
+----------------------
+Deploying the solution
+----------------------
+| With every commit the CI CD pipeline would be triggered
