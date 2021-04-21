@@ -47,7 +47,7 @@ data "template_file" "api_container_definitions" {
     app_image        = var.ecr_image_api
     log_group_name   = aws_cloudwatch_log_group.ecs_task_logs.name
     log_group_region = data.aws_region.current.name
-    allowed_hosts    = "*"
+    allowed_hosts    = aws_lb.api.dns_name
   }
 }
 
@@ -82,10 +82,13 @@ resource "aws_security_group" "ecs_service" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    security_groups = [
+      aws_security_group.lb.id
+    ]
+
   }
   tags = local.common_tags
 
@@ -104,7 +107,38 @@ resource "aws_ecs_service" "api" {
     security_groups  = [aws_security_group.ecs_service.id]
     assign_public_ip = true
   }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.api.arn
+    container_name   = "api"
+    container_port   = 80
+  }
+
+
 }
+# resource "aws_autoscaling_group" "autoscaling" {
+#   # ... other configuration, including potentially other tags ...
+#   name     = "${local.prefix}-autoscaling"
+#   max_size = 2
+#   min_size = 1
+
+# }
+
+# resource "aws_ecs_capacity_provider" "autoscalingcapacityprovider" {
+#   name = "${local.prefix}-autoscalingcapacityprovider"
+
+#   auto_scaling_group_provider {
+#     auto_scaling_group_arn         = aws_autoscaling_group.autoscaling.arn
+#     managed_termination_protection = "DISABLED"
+
+#     managed_scaling {
+#       maximum_scaling_step_size = 2
+#       minimum_scaling_step_size = 1
+#       status                    = "ENABLED"
+#       target_capacity           = 1
+#     }
+#   }
+# }
+
 
 resource "aws_security_group" "rds_sg" {
   description = "Access for RDS service"
