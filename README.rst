@@ -2,9 +2,9 @@
 Nordcloud Assignment: Migration of Notejam to AWS
 *************************************************
 
-docker-compose version: 1.6
-docker-image for terraform: hashicorp/terraform:0.12.21
-docker-image for build and push: docker:19.03.5 (docker in docker)
+| docker-compose version: 1.6
+| docker-image for terraform: hashicorp/terraform:0.12.21
+| docker-image for build and push: docker:19.03.5 (docker in docker)
 
 
 ===========
@@ -55,9 +55,10 @@ Setup Environmental variables in GitLab
 ---------------------------------------
 Visit deploy/docker-compose.yml for reference
 
-AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY
-ECR_REPO
+.. code-block:: bash
+    $ AWS_ACCESS_KEY_ID
+    $ AWS_SECRET_ACCESS_KEY
+    $ ECR_REPO
 
 
 
