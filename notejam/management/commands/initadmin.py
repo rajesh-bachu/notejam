@@ -1,17 +1,18 @@
 from django.conf import settings
-from django.core.management.base import BaseCommand
-from authentication.models import Account
+from django.core.management.base import NoArgsCommand
+from django.contrib.auth.models import User
 
-class Command(BaseCommand):
+
+class Command(NoArgsCommand):
 
     def handle(self, *args, **options):
-        if Account.objects.count() == 0:
+        if User.objects.count() == 0:
             for user in settings.ADMINS:
                 username = user[0].replace(' ', '')
                 email = user[1]
                 password = 'admin'
                 print('Creating account for %s (%s)' % (username, email))
-                admin = Account.objects.create_superuser(email=email, username=username, password=password)
+                admin = User.objects.create_superuser(email=email, username=username, password=password)
                 admin.is_active = True
                 admin.is_admin = True
                 admin.save()

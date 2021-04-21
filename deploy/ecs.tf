@@ -66,7 +66,7 @@ resource "aws_ecs_task_definition" "api" {
     name = "static"
   }
   tags = local.common_tags
-  
+
 }
 
 resource "aws_security_group" "ecs_service" {
@@ -132,10 +132,10 @@ resource "aws_db_instance" "dbinstance" {
   allocated_storage = 10
   engine            = "postgres"
   #engine_version       = "5.7"
-  instance_class = "db.t2.micro"
-  name           = "mydb"
-  username       = "foo"
-  password       = "foobarbaz"
+  instance_class      = "db.t2.micro"
+  name                = "mydb"
+  username            = "foo"
+  password            = "foobarbaz"
   publicly_accessible = "true"
   #parameter_group_name = "default.mysql5.7"
   skip_final_snapshot    = true
