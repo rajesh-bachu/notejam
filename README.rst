@@ -56,6 +56,7 @@ Setup Environmental variables in GitLab
 Visit deploy/docker-compose.yml for reference
 
 .. code-block:: bash
+
     $ AWS_ACCESS_KEY_ID
     $ AWS_SECRET_ACCESS_KEY
     $ ECR_REPO
