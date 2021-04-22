@@ -50,16 +50,81 @@ Clone the repo:
 
     $ git clone https://gitlab.com/rajesh68/notejam.git 
 
----------------------------------------
-Setup Environmental variables in GitLab
----------------------------------------
-Visit deploy/docker-compose.yml for reference
+=============
+Build and Run
+=============
+
+-----
+Local
+-----
+
+Change the directory:
 
 .. code-block:: bash
 
-    $ export AWS_ACCESS_KEY_ID= <accesskeyid>
-    $ AWS_SECRET_ACCESS_KEY
-    $ ECR_REPO
+    $ cd notejam/
+
+Docker build:
+
+.. code-block:: bash
+
+    $ docker build -t nordcloudassignment .
+
+Docker run:
+
+.. code-block:: bash
+
+    $ docker run -p 8000:8000 --rm nordcloudassignment sh -c 'python manage.py runserver'
+
+
+------
+In AWS
+------
+
+Change the directory:
+
+.. code-block:: bash
+
+    $ cd notejam/
+
+Create ECR Repo:
+
+
+Docker build:
+
+.. code-block:: bash
+
+    $ docker build -t nordcloudassignment .
+
+Docker tag:
+
+Docker push:
+
+Environmental variables:
+
+.. code-block:: bash
+
+    $ export AWS_ACCESS_KEY_ID=<accesskeyid>
+    $ export AWS_SECRET_ACCESS_KEY=<aws secret access key>
+
+Terraform init:
+
+.. code-block:: bash
+
+    $ docker-compose -f deploy/docker-compose.yml run --rm terraform init
+
+Terraform plan:
+
+.. code-block:: bash
+
+    $ docker-compose -f deploy/docker-compose.yml run --rm terraform plan
+
+Terraform apply:
+
+.. code-block:: bash
+
+    $ docker-compose -f deploy/docker-compose.yml run --rm terraform apply
+
 
 
 
@@ -102,3 +167,9 @@ Pipeline Stages
 Deploying the solution
 ----------------------
 | With every commit the CI CD pipeline would be triggered
+
+
+for now default sqlite we are using, in prod it is recommended to use RDS, tried a lot using RDS, but took more time fixing, comment RDS things in terraform
+comment db names in task definition if required...
+issue is in: django version 1.6 and release date is more than 5 years back.. i cannot bypass creating superuser... 
+tried creating custom comand called initadmin to create using random creds, it worked once, but dint work later.. so i see this as a potential improvement.
