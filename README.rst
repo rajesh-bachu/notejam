@@ -48,7 +48,7 @@ Clone the repo:
 
 .. code-block:: bash
 
-    $ git clone https://gitlab.com/rajesh68/notejam.git YOUR_PROJECT_DIR/
+    $ git clone https://gitlab.com/rajesh68/notejam.git 
 
 ---------------------------------------
 Setup Environmental variables in GitLab
@@ -57,10 +57,34 @@ Visit deploy/docker-compose.yml for reference
 
 .. code-block:: bash
 
-    $ AWS_ACCESS_KEY_ID
+    $ export AWS_ACCESS_KEY_ID= <accesskeyid>
     $ AWS_SECRET_ACCESS_KEY
     $ ECR_REPO
 
+
+
+Build and Run (section) (local)
+cd notejam/
+-docker build
+-docker run manage.py runserver...
+
+to run in AWS:
+cd notejam/
+-Create ECR repo
+-docker build
+-docker tag with ecr name
+-docker push
+-export access key, env variables
+docker-compose terraform init, plan, apply
+
+Completely Automated solution:
+Gitlab CI flow> screenshot and explain Stages
+how to setup a pipeline, environmental variables> git secrets
+how to deploy to Production
+
+
+
+docker-compose
 
 
 ---------------
