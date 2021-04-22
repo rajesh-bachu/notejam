@@ -7,22 +7,19 @@ ALLOWED_HOSTS = []
 PROJECT_DIR = "{}/../".format(os.path.dirname(__file__))
 
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
-    ('admin', 'rb@rajeshbachu.com'),
+    ('Sergey Komar', 'komarserjio@gmail.com'),
 )
-ADMIN_USERNAME = 'admin'
-ADMIN_EMAIL = 'rb@rajeshbachu.com'
-ADMIN_INITIAL_PASSWORD = 'admin'
 
 MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': os.environ.get('DB_HOST'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASS'),
-        'NAME': os.environ.get('DB_NAME'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'notejam.db',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
