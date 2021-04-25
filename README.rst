@@ -15,7 +15,13 @@ In this assignment Notejam application has been migrated to Amazon Web Services 
 ====================
 Architecture Diagram
 ====================
-![alt text](https://gitlab.com/rajesh68/notejam/-/blob/master/ArchitectureDiagram.png?raw=true)
+https://gitlab.com/rajesh68/notejam/-/raw/master/ArchitectureDiagram.png
+
+.. image:: ArchitectureDiagram.png
+    :width: 200px
+    :align: center
+    :height: 100px
+    :alt: alternate text
 
 ==========================
 Rejoinder for Requirements
