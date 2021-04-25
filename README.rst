@@ -12,6 +12,11 @@ Description
 ===========
 In this assignment Notejam application has been migrated to Amazon Web Services by utilizing container and serverless technologies which is highly available, highly scalable, easy to replicate to multiple regions, fault tolarant.
 
+====================
+Architecture Diagram
+====================
+![alt text](https://gitlab.com/rajesh68/notejam/-/blob/master/ArchitectureDiagram.png?raw=true)
+
 ==========================
 Rejoinder for Requirements
 ==========================
