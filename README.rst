@@ -15,13 +15,22 @@ In this assignment Notejam application has been migrated to Amazon Web Services 
 ====================
 Architecture Diagram
 ====================
-https://gitlab.com/rajesh68/notejam/-/raw/master/ArchitectureDiagram.png
-
 .. image:: ArchitectureDiagram.png
     :width: 200px
     :align: center
     :height: 100px
     :alt: alternate text
+
+Tools & Cloud Services Used:
+> Terraform - for Infrastructure as a Code (IaaC)
+> Docker - 
+> AWS VPC - Securing the applicaiton in a virtual private cloud by restricting access through IPs, Security Groups, NACLs etc.
+> Fargate - Serverless Compute engine for Containers
+> Amazon Elastic Container Registry (ECR) - for storing Docker Images
+> Application Load Balancer - to distribute the application traffic to multiple serverless instances of the application
+> Amazon S3 bucket - Backend of Terraform - stores state file (Versioning Enabled)
+> Amazon DynamoDB - stores state lock for Terraform
+> Gitlab - CI&CD deployment of entire pipeline
 
 ==========================
 Rejoinder for Requirements
