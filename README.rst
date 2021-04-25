@@ -74,7 +74,7 @@ Docker run:
 
 .. code-block:: bash
 
-    $ docker run -p 8000:8000 --rm nordcloudassignment sh -c 'python manage.py runserver'
+    $ docker run -p 8000:8000 --rm nordcloudassignment
 
 
 ------
@@ -94,11 +94,25 @@ Docker build:
 
 .. code-block:: bash
 
-    $ docker build -t nordcloudassignment .
+    $ docker build -t nordcloudassignment -f Dockerfile.prd .
 
 Docker tag:
 
+.. code-block:: bash
+
+    $ docker tag nordcloudassignment:latest <ecr repo created in above step>:latest
+
+Login to ECR Repo:
+
+.. code-block:: bash
+
+    $ aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin <ecr repo created in above step>
+
 Docker push:
+
+.. code-block:: bash
+
+    $ docker push <ecr repo created in above step>:latest
 
 Environmental variables:
 
