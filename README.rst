@@ -10,7 +10,16 @@ Nordcloud Assignment: Migration of Notejam to AWS
 ===========
 Description
 ===========
-In this assignment Notejam application has been migrated to Amazon Web Services by utilizing container and serverless technologies which is highly available, highly scalable, easy to replicate to multiple regions, fault tolarant.
+In this assignment Notejam application has been migrated to Amazon Web Services by utilizing container and serverless technologies which is highly available, scalable, fault tolarant and easy to replicate to multiple regions.
+
+=============
+Prerequisites
+=============
+- Gitlab account
+- AWS account
+- Docker
+- Terraform
+
 
 ====================
 Architecture Diagram
@@ -21,16 +30,19 @@ Architecture Diagram
     :height: 100px
     :alt: alternate text
 
+============================
 Tools & Cloud Services Used:
-> Terraform - for Infrastructure as a Code (IaaC)
-> Docker - 
-> AWS VPC - Securing the applicaiton in a virtual private cloud by restricting access through IPs, Security Groups, NACLs etc.
-> Fargate - Serverless Compute engine for Containers
-> Amazon Elastic Container Registry (ECR) - for storing Docker Images
-> Application Load Balancer - to distribute the application traffic to multiple serverless instances of the application
-> Amazon S3 bucket - Backend of Terraform - stores state file (Versioning Enabled)
-> Amazon DynamoDB - stores state lock for Terraform
-> Gitlab - CI&CD deployment of entire pipeline
+============================
+
+- Terraform - for Infrastructure as a Code (IaaC)
+- Docker - 
+- AWS VPC - Securing the applicaiton in a virtual private cloud by restricting access through IPs, Security Groups, NACLs etc.
+- Fargate - Serverless Compute engine for Containers
+- Amazon Elastic Container Registry (ECR) - for storing Docker Images
+- Application Load Balancer - to distribute the application traffic to multiple serverless instances of the application
+- Amazon S3 bucket - Backend of Terraform - stores state file (Versioning Enabled)
+- Amazon DynamoDB - stores state lock for Terraform
+- Gitlab - CI&CD deployment of entire pipeline
 
 ==========================
 Rejoinder for Requirements
