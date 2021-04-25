@@ -201,13 +201,26 @@ docker-compose
 ---------------
 Pipeline Stages
 ---------------
-  - Validate Terraform
-  - Build and Push
-  - Staging Plan
-  - Staging Apply
-  - Production Plan
-  - Production Apply
-  - Destroy
+- Validate Terraform
+    - performs terraform validate and fmt
+- Build and Push
+    - Uses Docker in docker and performs
+        - Installs Python3
+        - Installs AWSCLI
+        - Builds docker Image
+        - Logs in, push and tag docker image to Amazon ECR
+
+- Staging Plan
+    - selects terraform workspace and terraform plan
+
+- Staging Apply
+    - selects terraform workspace and terraform apply
+- Production Plan
+    - selects terraform workspace as production and terraform plan
+- Production Apply
+    - selects terraform workspace as production and terraform apply
+- Destroy
+    - destroys the entire infrastructure using terraform destroy 
 
 ----------------------
 Deploying the solution
