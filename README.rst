@@ -20,6 +20,77 @@ Prerequisites
 - Docker
 - Terraform
 
+---------------
+Create IAM User
+---------------
+Create an IAM user (for programmatic access) and policy that is used by CICD pipeline and also when terraform is executed from local.
+
+IAM Policy to be used:
+
+.. code-block:: json
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "TerraformRequiredPermissions",
+            "Effect": "Allow",
+            "Action": [
+                "ecr:GetAuthorizationToken",
+                "ecr:BatchCheckLayerAvailability",
+                "ec2:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "AllowListS3StateBucket",
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::terraform-state-rajeshbachu"
+        },
+        {
+            "Sid": "AllowS3StateBucketAccess",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::terraform-state-rajeshbachu/*"
+        },
+        {
+            "Sid": "LimitEC2Size",
+            "Effect": "Deny",
+            "Action": "ec2:RunInstances",
+            "Resource": "arn:aws:ec2:*:*:instance/*",
+            "Condition": {
+                "ForAnyValue:StringNotLike": {
+                    "ec2:InstanceType": [
+                        "t2.micro"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "AllowECRAccess",
+            "Effect": "Allow",
+            "Action": [
+                "ecr:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "AllowStateLockingAccess",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:PutItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:GetItem"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:*:*:table/*"
+            ]
+        }
+    ]
+    }
 
 ====================
 Architecture Diagram
