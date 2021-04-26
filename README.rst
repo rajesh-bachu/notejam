@@ -24,6 +24,7 @@ Prerequisites
 Create IAM User
 ---------------
 Create an IAM user (for programmatic access) and policy that is used by CICD pipeline and also when terraform is executed from local.
+Create an Access Key and Secret Access Key from the IAM User and export them in environmental variables.
 
 IAM Policy to be used:
 
