@@ -115,65 +115,7 @@ resource "aws_ecs_service" "api" {
 
 
 }
-# resource "aws_autoscaling_group" "autoscaling" {
-#   # ... other configuration, including potentially other tags ...
-#   name     = "${local.prefix}-autoscaling"
-#   max_size = 2
-#   min_size = 1
-
-# }
-
-# resource "aws_ecs_capacity_provider" "autoscalingcapacityprovider" {
-#   name = "${local.prefix}-autoscalingcapacityprovider"
-
-#   auto_scaling_group_provider {
-#     auto_scaling_group_arn         = aws_autoscaling_group.autoscaling.arn
-#     managed_termination_protection = "DISABLED"
-
-#     managed_scaling {
-#       maximum_scaling_step_size = 2
-#       minimum_scaling_step_size = 1
-#       status                    = "ENABLED"
-#       target_capacity           = 1
-#     }
-#   }
-# }
 
 
-resource "aws_security_group" "rds_sg" {
-  description = "Access for RDS service"
-  name        = "${local.prefix}-rds-sg"
-  vpc_id      = "vpc-e84dd882"
 
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  tags = local.common_tags
-
-}
-
-resource "aws_db_instance" "dbinstance" {
-  allocated_storage = 10
-  engine            = "postgres"
-  #engine_version       = "5.7"
-  instance_class      = "db.t2.micro"
-  name                = "mydb"
-  username            = "foo"
-  password            = "foobarbaz"
-  publicly_accessible = "true"
-  #parameter_group_name = "default.mysql5.7"
-  skip_final_snapshot    = true
-  vpc_security_group_ids = [aws_security_group.rds_sg.id]
-  identifier             = "${local.prefix}-dbinstance"
-}
 
