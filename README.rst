@@ -35,11 +35,11 @@ Tools & Cloud Services Used:
 ============================
 
 - Terraform - for Infrastructure as a Code (IaaC)
-- Docker - 
+- Docker - for building the image suitable for container
 - AWS VPC - Securing the applicaiton in a virtual private cloud by restricting access through IPs, Security Groups, NACLs etc.
 - Fargate - Serverless Compute engine for Containers
 - Amazon Elastic Container Registry (ECR) - for storing Docker Images
-- Application Load Balancer - to distribute the application traffic to multiple serverless instances of the application
+- Application Load Balancer - to distribute the application traffic to Fargate tasks of the application
 - Amazon S3 bucket - Backend of Terraform - stores state file (Versioning Enabled)
 - Amazon DynamoDB - stores state lock for Terraform
 - Gitlab - CI&CD deployment of entire pipeline
@@ -198,21 +198,19 @@ how to deploy to Production
 docker-compose
 
 
----------------
-Pipeline Stages
----------------
+=============================
+Pipeline Stages & Description
+=============================
 - Validate Terraform
     - performs terraform validate and fmt
 - Build and Push
     - Uses Docker in docker and performs
         - Installs Python3
         - Installs AWSCLI
-        - Builds docker Image
-        - Logs in, push and tag docker image to Amazon ECR
-
+        - Builds docker image
+        - Log in, push and tag docker image to Amazon ECR
 - Staging Plan
     - selects terraform workspace and terraform plan
-
 - Staging Apply
     - selects terraform workspace and terraform apply
 - Production Plan
@@ -220,7 +218,7 @@ Pipeline Stages
 - Production Apply
     - selects terraform workspace as production and terraform apply
 - Destroy
-    - destroys the entire infrastructure using terraform destroy 
+    - destroys the entire infrastructure using terraform destroy (This stage has to be executed manually)
 
 ----------------------
 Deploying the solution
