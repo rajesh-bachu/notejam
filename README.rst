@@ -31,67 +31,91 @@ IAM Policy to be used:
 .. code-block:: json
 
     {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "TerraformRequiredPermissions",
-            "Effect": "Allow",
-            "Action": [
-                "ecr:GetAuthorizationToken",
-                "ecr:BatchCheckLayerAvailability",
-                "ec2:*"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "AllowListS3StateBucket",
-            "Effect": "Allow",
-            "Action": "s3:ListBucket",
-            "Resource": "arn:aws:s3:::terraform-state-rajeshbachu"
-        },
-        {
-            "Sid": "AllowS3StateBucketAccess",
-            "Effect": "Allow",
-            "Action": [
-                "s3:GetObject",
-                "s3:PutObject"
-            ],
-            "Resource": "arn:aws:s3:::terraform-state-rajeshbachu/*"
-        },
-        {
-            "Sid": "LimitEC2Size",
-            "Effect": "Deny",
-            "Action": "ec2:RunInstances",
-            "Resource": "arn:aws:ec2:*:*:instance/*",
-            "Condition": {
-                "ForAnyValue:StringNotLike": {
-                    "ec2:InstanceType": [
-                        "t2.micro"
-                    ]
-                }
+        "Statement": [
+            {
+                "Action": "ec2:RunInstances",
+                "Condition": {
+                    "ForAnyValue:StringNotLike": {
+                        "ec2:InstanceType": "t2.micro"
+                    }
+                },
+                "Effect": "Deny",
+                "Resource": "arn:aws:ec2:*:*:instance/*",
+                "Sid": "VisualEditor3"
+            },
+            {
+                "Action": [
+                    "dynamodb:DeleteItem",
+                    "dynamodb:GetItem",
+                    "dynamodb:PutItem",
+                    "ecs:*",
+                    "ec2:*",
+                    "ecr:*",
+                    "elasticloadbalancing:AddTags",
+                    "elasticloadbalancing:ApplySecurityGroupsToLoadBalancer",
+                    "elasticloadbalancing:AttachLoadBalancerToSubnets",
+                    "elasticloadbalancing:ConfigureHealthCheck",
+                    "elasticloadbalancing:Create*",
+                    "elasticloadbalancing:Delete*",
+                    "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
+                    "elasticloadbalancing:Describe*",
+                    "elasticloadbalancing:Modify*",
+                    "elasticloadbalancing:SetSecurityGroups",
+                    "application-autoscaling:*",
+                    "iam:AttachRolePolicy",
+                    "iam:CreatePolicy",
+                    "iam:CreatePolicyVersion",
+                    "iam:CreateRole",
+                    "iam:GenerateOrganizationsAccessReport",
+                    "iam:Get*",
+                    "iam:List*",
+                    "iam:Tag*",
+                    "iam:DetachRolePolicy",
+                    "iam:DeleteRole",
+                    "iam:DeletePolicy",
+                    "iam:PassRole",
+                    "s3:ListBucket",
+                    "rds:*"
+                ],
+                "Effect": "Allow",
+                "Resource": "*",
+                "Sid": "VisualEditor1"
+            },
+            {
+                "Action": [
+                    "iam:Get*",
+                    "iam:List*",
+                    "iam:ListVirtualMFADevices",
+                    "iam:SimulateCustomPolicy"
+                ],
+                "Effect": "Allow",
+                "Resource": "*",
+                "Sid": "VisualEditor0"
+            },
+            {
+                "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                    "logs:Describe*",
+                    "logs:List*",
+                    "logs:DeleteLogGroup"
+                ],
+                "Effect": "Allow",
+                "Resource": "*",
+                "Sid": "VisualEditor4"
+            },
+            {
+                "Action": [
+                    "s3:GetObject",
+                    "s3:PutObject"
+                ],
+                "Effect": "Allow",
+                "Resource": "arn:aws:s3:::terraform-state-rajeshbachu/*",
+                "Sid": "VisualEditor2"
             }
-        },
-        {
-            "Sid": "AllowECRAccess",
-            "Effect": "Allow",
-            "Action": [
-                "ecr:*"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "AllowStateLockingAccess",
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:PutItem",
-                "dynamodb:DeleteItem",
-                "dynamodb:GetItem"
-            ],
-            "Resource": [
-                "arn:aws:dynamodb:*:*:table/*"
-            ]
-        }
-    ]
+        ],
+        "Version": "2012-10-17"
     }
 
 ====================
@@ -303,3 +327,8 @@ for now default sqlite we are using, in prod it is recommended to use RDS, tried
 comment db names in task definition if required...
 issue is in: django version 1.6 and release date is more than 5 years back.. i cannot bypass creating superuser... 
 tried creating custom comand called initadmin to create using random creds, it worked once, but dint work later.. so i see this as a potential improvement.
+
+
+Explain IAM Policy - focus on security
+explain how terraform backend was setup
+security best practices
