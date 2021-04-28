@@ -296,30 +296,45 @@ docker-compose
 
 
 =============================
-Pipeline Stages & Description
+CI&CD Pipeline 
 =============================
-- Validate Terraform
-    - performs terraform validate and fmt
-- Build and Push
-    - Uses Docker in docker and performs
-        - Installs Python3
-        - Installs AWSCLI
-        - Builds docker image
-        - Log in, push and tag docker image to Amazon ECR
-- Staging Plan
-    - selects terraform workspace and terraform plan
-- Staging Apply
-    - selects terraform workspace and terraform apply
-- Production Plan
-    - selects terraform workspace as production and terraform plan
-- Production Apply
-    - selects terraform workspace as production and terraform apply
-- Destroy
-    - destroys the entire infrastructure using terraform destroy (This stage has to be executed manually)
 
-----------------------
-Deploying the solution
-----------------------
+--------------------
+Stages & Description
+--------------------
+
+Stage 1 - Validate Terraform
+            - performs terraform validate and fmt
+Stage 2 - Build and Push
+            - Uses Docker in docker and performs
+            - Installs Python3
+            - Installs AWSCLI
+            - Builds docker image
+            - Log in, push and tag docker image to Amazon ECR
+Stage 3 - Staging Plan
+            - selects terraform workspace and terraform plan
+Stage 4 - Staging Apply
+            - selects terraform workspace and terraform apply
+Stage 3* - Production Plan
+            - selects terraform workspace as production and terraform plan
+Stage 4* - Production Apply
+            - selects terraform workspace as production and terraform apply
+Stage 5 - Destroy
+            - destroys the entire infrastructure using terraform destroy (This stage has to be executed manually)
+
+-----
+Setup
+-----
+Create a new repo and commit all the code to the repo
+
+Create environmental variables on Gitlab:
+On GitLab Project go to settings> CI/CD> VAriables> create below variables
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+ECR_REPO
+
+Add a commit to the Repository then entire CICD pipeline would be triggered
+
 | With every commit the CI CD pipeline would be triggered
 
 
