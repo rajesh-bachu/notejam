@@ -335,15 +335,13 @@ ECR_REPO
 
 Add a commit to the Repository then entire CICD pipeline would be triggered
 
-| With every commit the CI CD pipeline would be triggered
+----------------------
+CICD Stages Screenshot
+----------------------
+.. image:: Pipeline_example.png
+    :width: 200px
+    :align: center
+    :height: 100px
+    :alt: alternate text
 
 
-for now default sqlite we are using, in prod it is recommended to use RDS, tried a lot using RDS, but took more time fixing, comment RDS things in terraform
-comment db names in task definition if required...
-issue is in: django version 1.6 and release date is more than 5 years back.. i cannot bypass creating superuser... 
-tried creating custom comand called initadmin to create using random creds, it worked once, but dint work later.. so i see this as a potential improvement.
-
-
-Explain IAM Policy - focus on security
-explain how terraform backend was setup
-security best practices
