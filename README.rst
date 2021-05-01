@@ -344,4 +344,12 @@ CICD Stages Screenshot
     :height: 100px
     :alt: alternate text
 
+--------------
+Notejam in AWS
+--------------
+.. image:: Notejam_in_AWS.png
+    :width: 200px
+    :align: center
+    :height: 100px
+    :alt: alternate text
 
