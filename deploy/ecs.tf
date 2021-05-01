@@ -85,9 +85,10 @@ resource "aws_security_group" "ecs_service" {
     from_port = 0
     to_port   = 0
     protocol  = "-1"
-    security_groups = [
-      aws_security_group.lb.id
-    ]
+    cidr_blocks = ["0.0.0.0/0"]
+    # security_groups = [
+    #   aws_security_group.lb.id
+    # ]
 
   }
   tags = local.common_tags
@@ -112,6 +113,7 @@ resource "aws_ecs_service" "api" {
     container_name   = "api"
     container_port   = 80
   }
+  health_check_grace_period_seconds = 300
 
 
 }
